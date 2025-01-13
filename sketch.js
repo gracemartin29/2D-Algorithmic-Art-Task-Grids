@@ -1,19 +1,20 @@
-/* 
+// pressing mouse interactive heart grid
+/*
 const CELLSIZE = 50
 const COLOURS = ["#330019", "#660033", "#99004C", "#CC0066", "#FF007F", "#FF3399", "#FF66B2", "#FF99CC", "#FFCCE5"]
+
+let isPressing = false;
 
 function setup() {
   createCanvas(500, 500);
   // noLoop();
-  frameRate(3)
-
-  // rectMode(CENTER)
+  frameRate(4)
 }
 
 function draw() {
   background(0);
 
-  // basic heart grid
+  // sets up grid
   for (let y = 0; y < height; y += CELLSIZE) {
     for (let x = 0; x < width; x += CELLSIZE) {
 
@@ -28,34 +29,35 @@ function draw() {
   // calculate distance from heart to mouse position
       var mouseDistance = dist(heartX, heartY, mouseX, mouseY)
 
-      arc(x + CELLSIZE / 4, y + CELLSIZE / 3, CELLSIZE / 2, CELLSIZE / 2, PI, 0)
-      arc(x + 3 * CELLSIZE / 4, y + CELLSIZE / 3, CELLSIZE / 2, CELLSIZE / 2, PI, 0)
-      triangle(x, y + CELLSIZE / 3, x + CELLSIZE / 2, y + CELLSIZE, x + CELLSIZE, y + CELLSIZE / 3)
-
       // simple mouse interactivity
-      // if (mouseX >= x && mouseX <= x + CELLSIZE && mouseY >= y && mouseY <= y + CELLSIZE) {
-      //   // stroke(random(COLOURS))
-      //   stroke(200, 0, 0)
-      //   strokeWeight(10)
-      //   strokeCap(SQUARE)
-      //   line(x, y, x + CELLSIZE, y + CELLSIZE)
-      //   line(x + CELLSIZE, y, x, y + CELLSIZE)
-      // } else {
-      //   arc(x + CELLSIZE / 4, y + CELLSIZE / 3, CELLSIZE / 2, CELLSIZE / 2, PI, 0)
-      //   arc(x + 3 * CELLSIZE / 4, y + CELLSIZE / 3, CELLSIZE / 2, CELLSIZE / 2, PI, 0)
-      //   triangle(x, y + CELLSIZE / 3, x + CELLSIZE / 2, y + CELLSIZE, x + CELLSIZE, y + CELLSIZE / 3)
-      // }
+      if (isPressing && mouseX >= x && mouseX <= x + CELLSIZE && mouseY >= y && mouseY <= y + CELLSIZE) {
+        stroke(random(COLOURS))
+        strokeWeight(10)
+        strokeCap(SQUARE)
+        line(x, y, x + CELLSIZE, y + CELLSIZE)
+        line(x + CELLSIZE, y, x, y + CELLSIZE)
+      } else {
+        arc(x + CELLSIZE / 4, y + CELLSIZE / 3, CELLSIZE / 2, CELLSIZE / 2, PI, 0)
+        arc(x + 3 * CELLSIZE / 4, y + CELLSIZE / 3, CELLSIZE / 2, CELLSIZE / 2, PI, 0)
+        triangle(x, y + CELLSIZE / 3, x + CELLSIZE / 2, y + CELLSIZE, x + CELLSIZE, y + CELLSIZE / 3)
+      }
     }
   }
 }
 
+function mousePressed(){
+  isPressing = true;
+}
+function mouseReleased(){
+  isPressing = false;
+}
 */
 
-/*
-const BASE_CELLSIZE = 50; // Base cell size
+// non pressing mouse interactive heart grid (helped from chat gpt)
+
+const CELLSIZE = 50; 
 const COLOURS = ["#330019", "#660033", "#99004C", "#CC0066", "#FF007F", "#FF3399", "#FF66B2", "#FF99CC", "#FFCCE5"];
 
-let isPressing = false;
 
 function setup() {
   createCanvas(700, 500);
@@ -67,73 +69,69 @@ function setup() {
 function draw() {
   background(0);
 
-  // Heart grid with interactive scaling
-  for (let y = 0; y < height; y += BASE_CELLSIZE) {
-    for (let x = 0; x < width; x += BASE_CELLSIZE) {
+  // draw grid
+  for (let y = 0; y < height; y += CELLSIZE) {
+    for (let x = 0; x < width; x += CELLSIZE) {
 
-      // Set fill color
+      // set fill color
       fill(random(COLOURS));
       noStroke();
 
+      // calculate the center of the current heart
+      let centerX = x + CELLSIZE/ 2;
+      let centerY = y + CELLSIZE/ 2;
 
-      // Calculate the center of the current heart
-      let centerX = x + BASE_CELLSIZE / 2;
-      let centerY = y + BASE_CELLSIZE / 2;
-
-      // Calculate distance from heart center to mouse position
+      // calculate distance from heart center to mouse position
       let mouseDistance = dist(centerX, centerY, mouseX, mouseY);
 
-      // Scale cell size based on distance (closer -> larger, farther -> smaller)
-      let scaledSize = map(mouseDistance, 0, width, BASE_CELLSIZE * 1.5, BASE_CELLSIZE * 0.5);
-      scaledSize = constrain(scaledSize, BASE_CELLSIZE * 0.5, BASE_CELLSIZE * 1.5);
+      // scale cell size based on distance (closer = larger, farther = smaller)
+      let scaledSize = map(mouseDistance, 0, width/2, CELLSIZE * 1.5, CELLSIZE * 0.5);
+      scaledSize = constrain(scaledSize, CELLSIZE * 0.5, CELLSIZE * 1.5);
 
-      // Draw the heart
+      // drawing the heart
       let heartWidth = scaledSize;
       let heartHeight = scaledSize * 0.6;
 
-      // Top-left arc
-      arc(centerX - heartWidth / 4, centerY - heartHeight / 4, heartWidth / 2, heartHeight / 2, PI, 0);
-      // Top-right arc
-      arc(centerX + heartWidth / 4, centerY - heartHeight / 4, heartWidth / 2, heartHeight / 2, PI, 0);
-      // Bottom triangle
-      triangle(
-        centerX - heartWidth / 2, centerY - heartHeight / 4,
-        centerX + heartWidth / 2, centerY - heartHeight / 4,
-        centerX, centerY + heartHeight / 2
-      );
+      arc(centerX - heartWidth/ 4, centerY - heartHeight/ 4, heartWidth/ 2, heartHeight/ 2, PI, 0);
+      arc(centerX + heartWidth/ 4, centerY - heartHeight/ 4, heartWidth/ 2, heartHeight/ 2, PI, 0);
+      triangle(centerX - heartWidth/ 2, centerY - heartHeight/ 4, centerX + heartWidth/ 2, centerY - heartHeight/ 4, centerX, centerY + heartHeight/ 2);
 
     }
   }
+
+  // silly added text
+  // fill(255,0,0)
+  // textSize(50)
+  // textStyle(BOLD)
+  // text("mwah", width/2, height/2)
+
 }
 
-*/
-
-const CELLSIZE = 50
-const COLOURS = ["#330019", "#660033", "#99004C", "#CC0066", "#FF007F", "#FF3399", "#FF66B2", "#FF99CC", "#FFCCE5"]
+// random shapes
+/*
+const CELLSIZE =25
 const SHAPES = [1, 2, 3]
 
 function setup() {
   createCanvas(500, 500);
-  // noLoop();
-  frameRate(3)
-
-  // rectMode(CENTER)
+  noLoop();
 }
 
 function draw() {
   background(255);
 
-  // basic heart grid
+  // draw grid
   for (let y = 0; y < height; y += CELLSIZE) {
     for (let x = 0; x < width; x += CELLSIZE) {
 
+    // set colour and outline
+      fill(random(100,255), random(100,150), 0)
+      strokeWeight(2)
+
+      // draws initial map of grid
       rect(x,y,CELLSIZE)
-      // sets colours
-      fill(random(255), random(255), random(255))
-      // noStroke()
 
-
-
+      // randomly selects extra shapes to draw 
       if (random(SHAPES) == 1) {
         circle(x, y, CELLSIZE/2)
       } else if (random(SHAPES) == 2) {
@@ -145,4 +143,4 @@ function draw() {
     }
   }
 }
-
+*/
