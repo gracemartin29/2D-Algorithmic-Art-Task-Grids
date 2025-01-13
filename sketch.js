@@ -1,4 +1,4 @@
-/*
+/* 
 const CELLSIZE = 50
 const COLOURS = ["#330019", "#660033", "#99004C", "#CC0066", "#FF007F", "#FF3399", "#FF66B2", "#FF99CC", "#FFCCE5"]
 
@@ -51,13 +51,14 @@ function draw() {
 
 */
 
+
 const BASE_CELLSIZE = 50; // Base cell size
 const COLOURS = ["#330019", "#660033", "#99004C", "#CC0066", "#FF007F", "#FF3399", "#FF66B2", "#FF99CC", "#FFCCE5"];
 
 let isPressing = false;
 
 function setup() {
-  createCanvas(500, 500);
+  createCanvas(700, 500);
   frameRate(5);
 
   rectMode(CENTER)
@@ -74,45 +75,33 @@ function draw() {
       fill(random(COLOURS));
       noStroke();
 
-      if (isPressing && mouseX >= x && mouseX <= x + BASE_CELLSIZE && mouseY >= y && mouseY <= y + BASE_CELLSIZE) {
 
-        // Calculate the center of the current heart
-        let centerX = x + BASE_CELLSIZE / 2;
-        let centerY = y + BASE_CELLSIZE / 2;
+      // Calculate the center of the current heart
+      let centerX = x + BASE_CELLSIZE / 2;
+      let centerY = y + BASE_CELLSIZE / 2;
 
-        // Calculate distance from heart center to mouse position
-        let mouseDistance = dist(centerX, centerY, mouseX, mouseY);
+      // Calculate distance from heart center to mouse position
+      let mouseDistance = dist(centerX, centerY, mouseX, mouseY);
 
-        // Scale cell size based on distance (closer -> larger, farther -> smaller)
-        let scaledSize = map(mouseDistance, 0, width, BASE_CELLSIZE * 1.5, BASE_CELLSIZE * 0.5);
-        scaledSize = constrain(scaledSize, BASE_CELLSIZE * 0.5, BASE_CELLSIZE * 1.5);
+      // Scale cell size based on distance (closer -> larger, farther -> smaller)
+      let scaledSize = map(mouseDistance, 0, width, BASE_CELLSIZE * 1.5, BASE_CELLSIZE * 0.5);
+      scaledSize = constrain(scaledSize, BASE_CELLSIZE * 0.5, BASE_CELLSIZE * 1.5);
 
-        // Draw the heart
-        let heartWidth = scaledSize;
-        let heartHeight = scaledSize * 0.6;
+      // Draw the heart
+      let heartWidth = scaledSize;
+      let heartHeight = scaledSize * 0.6;
 
-        // Top-left arc
-        arc(centerX - heartWidth / 4, centerY - heartHeight / 4, heartWidth / 2, heartHeight / 2, PI, 0);
-        // Top-right arc
-        arc(centerX + heartWidth / 4, centerY - heartHeight / 4, heartWidth / 2, heartHeight / 2, PI, 0);
-        // Bottom triangle
-        triangle(
-          centerX - heartWidth / 2, centerY - heartHeight / 4,
-          centerX + heartWidth / 2, centerY - heartHeight / 4,
-          centerX, centerY + heartHeight / 2
-        );
-      } else {
-        arc(x + BASE_CELLSIZE / 4, y + BASE_CELLSIZE / 3, BASE_CELLSIZE / 2, BASE_CELLSIZE / 2, PI, 0)
-        arc(x + 3 * BASE_CELLSIZE / 4, y + BASE_CELLSIZE / 3, BASE_CELLSIZE / 2, BASE_CELLSIZE / 2, PI, 0)
-        triangle(x, y + BASE_CELLSIZE / 3, x + BASE_CELLSIZE / 2, y + BASE_CELLSIZE, x + BASE_CELLSIZE, y + BASE_CELLSIZE / 3)
-      }
+      // Top-left arc
+      arc(centerX - heartWidth / 4, centerY - heartHeight / 4, heartWidth / 2, heartHeight / 2, PI, 0);
+      // Top-right arc
+      arc(centerX + heartWidth / 4, centerY - heartHeight / 4, heartWidth / 2, heartHeight / 2, PI, 0);
+      // Bottom triangle
+      triangle(
+        centerX - heartWidth / 2, centerY - heartHeight / 4,
+        centerX + heartWidth / 2, centerY - heartHeight / 4,
+        centerX, centerY + heartHeight / 2
+      );
+
     }
   }
-}
-
-function mousePressed(){
-  isPressing = true;
-}
-function mouseReleased(){
-  isPressing = false;
 }
