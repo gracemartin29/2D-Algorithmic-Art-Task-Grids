@@ -51,7 +51,7 @@ function draw() {
 
 */
 
-
+/*
 const BASE_CELLSIZE = 50; // Base cell size
 const COLOURS = ["#330019", "#660033", "#99004C", "#CC0066", "#FF007F", "#FF3399", "#FF66B2", "#FF99CC", "#FFCCE5"];
 
@@ -105,3 +105,44 @@ function draw() {
     }
   }
 }
+
+*/
+
+const CELLSIZE = 50
+const COLOURS = ["#330019", "#660033", "#99004C", "#CC0066", "#FF007F", "#FF3399", "#FF66B2", "#FF99CC", "#FFCCE5"]
+const SHAPES = [1, 2, 3]
+
+function setup() {
+  createCanvas(500, 500);
+  // noLoop();
+  frameRate(3)
+
+  // rectMode(CENTER)
+}
+
+function draw() {
+  background(255);
+
+  // basic heart grid
+  for (let y = 0; y < height; y += CELLSIZE) {
+    for (let x = 0; x < width; x += CELLSIZE) {
+
+      rect(x,y,CELLSIZE)
+      // sets colours
+      fill(random(255), random(255), random(255))
+      // noStroke()
+
+
+
+      if (random(SHAPES) == 1) {
+        circle(x, y, CELLSIZE/2)
+      } else if (random(SHAPES) == 2) {
+      triangle(x, y + CELLSIZE / 3, x + CELLSIZE / 2, y + CELLSIZE, x + CELLSIZE, y + CELLSIZE / 3)
+      } else if (random(SHAPES) == 3){
+        ellipse(x+CELLSIZE/2, y+CELLSIZE/2, CELLSIZE/2, CELLSIZE-5)
+      }
+
+    }
+  }
+}
+
