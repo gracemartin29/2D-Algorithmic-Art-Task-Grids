@@ -53,7 +53,7 @@ function mouseReleased(){
 }
 */
 
-// non pressing mouse interactive heart grid (helped from chat gpt)
+// non pressing mouse interactive heart grid (helped from phind)
 
 const CELLSIZE = 50; 
 const COLOURS = ["#330019", "#660033", "#99004C", "#CC0066", "#FF007F", "#FF3399", "#FF66B2", "#FF99CC", "#FFCCE5"];
@@ -107,6 +107,7 @@ function draw() {
 
 }
 
+
 // random shapes
 /*
 const CELLSIZE =25
@@ -143,4 +144,5 @@ function draw() {
     }
   }
 }
+
 */
