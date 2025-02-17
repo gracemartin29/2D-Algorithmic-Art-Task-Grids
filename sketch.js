@@ -61,7 +61,7 @@ const COLOURS = ["#330019", "#660033", "#99004C", "#CC0066", "#FF007F", "#FF3399
 
 function setup() {
   createCanvas(700, 500);
-  frameRate(5);
+  frameRate(6);
 
   rectMode(CENTER)
 }
@@ -72,6 +72,7 @@ function draw() {
   // draw grid
   for (let y = 0; y < height; y += CELLSIZE) {
     for (let x = 0; x < width; x += CELLSIZE) {
+
 
       // set fill color
       fill(random(COLOURS));
@@ -97,6 +98,7 @@ function draw() {
       triangle(centerX - heartWidth/ 2, centerY - heartHeight/ 4, centerX + heartWidth/ 2, centerY - heartHeight/ 4, centerX, centerY + heartHeight/ 2);
 
     }
+
   }
 
   // silly added text
@@ -104,6 +106,7 @@ function draw() {
   // textSize(50)
   // textStyle(BOLD)
   // text("mwah", width/2, height/2)
+
 
 }
 
